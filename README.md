@@ -1,4 +1,4 @@
-Message me if you would like to contribute
+Message me if you would like to contribute. Did this quickly so that it works but much to clean up.
 
 
 
