@@ -1,3 +1,7 @@
+Message me if you would like to contribute
+
+
+
 Enter openai key into config.py
 
 install requirements then run main.py
