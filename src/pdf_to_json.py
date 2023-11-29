@@ -94,8 +94,6 @@ def extract_text_from_pdf(pdf_path, sections, page_difference=0):
     audio_cost = ((len(total_text) * 4/5)/1000) * 0.015
     audio_time = (len(total_text) * 4/5) * 0.0014
     rewrite_time = (0.0145) * total_tokens
-    print(total_tokens)
-    print(len(total_text))
     total_time = audio_time + rewrite_time
     total_time_secs = str(int(total_time % 60))
     total_time_mins = str(int(total_time // 60))
