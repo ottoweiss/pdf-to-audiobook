@@ -6,4 +6,4 @@ Enter openai key into config.py
 
 install requirements then run main.py in command line (All other directions will be shown there)
 
-See example in example sub-folder.
+Listen to "Letters to a Young Poet" in examples folder.
