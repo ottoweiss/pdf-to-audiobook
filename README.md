@@ -1,4 +1,4 @@
-(If anyone would like to build it out or fix anything feel free to contribute and submit pull requests)
+(If anyone would like to build it out, like add gpt4o as possible cleaner, or fix anything feel free to contribute and submit pull requests)
 
 Download or upload a pdf. Convert it into professional grade audiobook. Should work for book pdfs and most others, but some weird formatting may require you to change cleaning prompt.
 
