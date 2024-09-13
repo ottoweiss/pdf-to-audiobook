@@ -9,7 +9,6 @@ import atexit
 from concurrent.futures import ThreadPoolExecutor
 import re
 
-
 def split_audio_into_segments(file_path, mins=119):
     """
     Splits an audio file into segments of a specified maximum length in minutes
@@ -61,6 +60,9 @@ def save_full(book_title):
                 ordered_files.append((order, filename))
 
     ordered_files.sort(key=lambda x: x[0])
+    if len(ordered_files) == 1:
+        os.rename(os.path.join(book_directory, ordered_files[0][1]), full_book_file)
+        return
 
     for _, filename in ordered_files:
         file_path = os.path.join(book_directory, filename)
