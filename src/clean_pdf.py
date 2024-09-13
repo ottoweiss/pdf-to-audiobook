@@ -4,17 +4,17 @@ from config import KEY
 from openai import OpenAI
 import concurrent.futures
 import os
+from config import TEXT_CLEANING_SYSTEM_PROMPT
+from config import TEXT_CLEANING_PROMPT
 
 def gpt_rewrite(text: str):
-    system_prompt_rewrite = "You are an AI that rewrites text extracted from pdfs of books. You write exactly what the book has in the main body of text, but you remove all typos, footnotes, headers, and page numbers. You always respond with the exact cleaned text of the main body of the book excerpt."
-    text = "Please clean the following text, removing footnotes, typos, headers (ex. \'\nChapter 1 \n29\'), page numbers, and unneccesary 'newline' characters. Respond with the exact cleaned text: \n" + text
+    text = TEXT_CLEANING_PROMPT + text
     client = OpenAI(api_key=KEY)
-    response = client.chat.completions.create(model="gpt-3.5-turbo-1106",temperature=0.74,
+    response = client.chat.completions.create(model="gpt-4o-mini",temperature=0.74,
     max_tokens=2000,
     messages=[
-    {"role": "system", "content": system_prompt_rewrite},
+    {"role": "system", "content": TEXT_CLEANING_SYSTEM_PROMPT},
     {"role": "user", "content": text}]
-
     )
     answer = response.choices[0].message.content
     return answer
@@ -33,7 +33,8 @@ def finalize_list(text_dict: dict[int, list[str]]) -> list[list[str]]:
                 count = 0
             else:
                 count += 1
-    final_list.append(temp_list)
+    if temp_list:
+        final_list.append(temp_list)
     return final_list
 
 
