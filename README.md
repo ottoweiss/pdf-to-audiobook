@@ -1,11 +1,26 @@
-(If anyone would like to build it out, like add gpt4o as possible cleaner, or fix anything feel free to contribute and submit pull requests)
+*If anyone would like to build it out—like adding more cleaning configurations or fixing anything—feel free to contribute and submit pull requests.*
 
-Download or upload a pdf. Convert it into professional grade audiobook. Should work for book pdfs and most others, but some weird formatting may require you to change cleaning prompt.
+A simple PDF conversion to a professional-grade audiobook with OpenAI's text to speech models. Should work for book PDFs and most others, but some PDFs with unusual formatting may require you to change the cleaning prompt (config.py).
 
-Made this for myself but thought I should share because have found it useful, maybe could help people with vision and reading problems.
+I made this for myself but thought I should share it because I've found it useful; maybe it could help people with vision and reading difficulties.
 
-Enter openai key into config.py
+## Getting Started
 
-install requirements then run main.py in command line (All other directions will be shown there)
+### Prerequisites
 
-Listen to "Letters to a Young Poet" in examples folder.
+- **OpenAI API Key**: Enter your OpenAI API key into `config.py`.
+
+*Can also alter cleaning prompt, see config.py*
+
+### Installation
+After cloning repository, navigate to root and install requirements.
+
+'''pip install -r requirements.txt'''
+
+
+Place desired pdf in root of folder.
+
+
+Run main.py and follow prompts:
+
+'''python main.py'''
