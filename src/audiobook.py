@@ -9,7 +9,6 @@ import atexit
 from concurrent.futures import ThreadPoolExecutor
 import re
 
-KEY = ""
 
 def split_audio_into_segments(file_path, mins=119):
     """
