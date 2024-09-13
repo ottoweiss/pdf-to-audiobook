@@ -4,7 +4,7 @@ from src.pdf_to_json import extract_text_from_pdf
 import os
 import time
 from colorama import Fore, Style
-import inquirer 
+import inquirer
 import sys
 
 def input_q(text):
