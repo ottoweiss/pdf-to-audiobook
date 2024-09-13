@@ -4,7 +4,7 @@ from src.pdf_to_json import extract_text_from_pdf
 import os
 import time
 from colorama import Fore, Style
-import inquirer  # Import inquirer
+import inquirer
 import sys
 
 def input_q(text):
@@ -76,7 +76,6 @@ if __name__ == "__main__":
 
     correct_audio_configuration = False
     while not correct_audio_configuration:
-        # Use inquirer to select a voice
         voice_question = [
             inquirer.List(
                 'voice',
