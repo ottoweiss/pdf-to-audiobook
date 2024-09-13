@@ -9,6 +9,8 @@ import atexit
 from concurrent.futures import ThreadPoolExecutor
 import re
 
+KEY = ""s
+
 def split_audio_into_segments(file_path, mins=119):
     """
     Splits an audio file into segments of a specified maximum length in minutes
