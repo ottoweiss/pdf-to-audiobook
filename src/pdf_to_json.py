@@ -90,8 +90,8 @@ def extract_text_from_pdf(pdf_path, sections, page_difference=0):
 
     encoding = tiktoken.encoding_for_model('gpt-3.5-turbo')
     total_tokens = len(encoding.encode(total_text))
-    rewrite_cost = (total_tokens/1000) * 0.0030
-    audio_cost = ((len(total_text) * 4/5)/1000) * 0.015
+    rewrite_cost = (total_tokens*1.8/1000000) * 0.35
+    audio_cost = ((len(total_text) * 4/5)/1000000) * 15
     audio_time = (len(total_text) * 4/5) * 0.0014
     rewrite_time = (0.0145) * total_tokens
     total_time = audio_time + rewrite_time
@@ -100,6 +100,7 @@ def extract_text_from_pdf(pdf_path, sections, page_difference=0):
     total_time_str = f"{total_time_mins} mins {total_time_secs} secs"
     total_cost = round(rewrite_cost + audio_cost, 2)
     total_cost_str = f"{total_cost} $"
+    total_cost_good_audio = f"{round(rewrite_cost + (audio_cost * 2), 2)}"
     with open(pdf_path.replace(".pdf", ".json"), "w", encoding="utf-8") as sections_json:
         json.dump(section_chunks, sections_json, indent=2)
-    return total_cost_str, total_time_str
+    return total_cost_str, total_time_str, total_cost_good_audio
