@@ -60,15 +60,13 @@ def save_full(book_title):
                 ordered_files.append((order, filename))
 
     ordered_files.sort(key=lambda x: x[0])
-    if len(ordered_files) == 1:
-        os.rename(os.path.join(book_directory, ordered_files[0][1]), full_book_file)
-        return
 
     for _, filename in ordered_files:
         file_path = os.path.join(book_directory, filename)
         combined_audio += AudioSegment.from_file(file_path, format="mp3")
-
+        
     combined_audio.export(full_book_file, format="mp3")
+    
 
 def play_split_and_combine(index, text, voice, speed, model):
     client = openai.OpenAI(api_key=KEY)
