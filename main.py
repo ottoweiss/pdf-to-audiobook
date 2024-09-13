@@ -4,7 +4,7 @@ from src.pdf_to_json import extract_text_from_pdf
 import os
 import time
 from colorama import Fore, Style
-import inquirer
+import inquirer  # Import inquirer
 import sys
 
 def input_q(text):
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     print_info(f"ESTIMATED TIME FOR CONVERSION: {e_time}\n")
     audio_model = ""
     while  audio_model not in ["tts-1-hd", "tts-1"]:
-        audio_quality = input_q(f"Would you like normal (cost ~${n_cost}) or high (cost ~${h_cost} audio quality? [n]/h: ").strip()
+        audio_quality = input_q(f"Would you like normal (cost ~${n_cost}) or high (cost ~${h_cost}) audio quality? [n]/h: ").strip()
         if audio_quality == "h":
             audio_model = "tts-1-hd"
         elif audio_quality == "n" or audio_quality == "":
@@ -76,6 +76,7 @@ if __name__ == "__main__":
 
     correct_audio_configuration = False
     while not correct_audio_configuration:
+        # Use inquirer to select a voice
         voice_question = [
             inquirer.List(
                 'voice',
