@@ -47,12 +47,18 @@ if __name__ == "__main__":
             file_included = True
 
     correct_page_range = False
-    while not correct_page_range:
+    while not correct_page_range or title == "":
         try:
             page_start = int(input_q("What page should the audiobook start?: ").strip())
             page_end = int(input_q("What page should the audiobook end?: ").strip())
             title = input_q("Enter Your Book Title: ").strip()
-            n_cost, e_time, h_cost = extract_text_from_pdf(pdf_file_name, {title: (page_start, page_end)})
+            while title == "":
+                title = input_q("Enter Your Book Title: ").strip()
+            if not os.path.exists(title):
+                os.makedirs(title)
+            json_file = f"{title}/" + pdf_file_name.replace(".pdf", ".json")
+            output_json = json_file.replace(".json", "-cleaned.json")
+            n_cost, e_time, h_cost = extract_text_from_pdf(pdf_file_name, json_file, {title: (page_start, page_end)})
             correct_page_range = True
         except ValueError:
             print_error("Please provide a valid integer for page numbers.")
@@ -68,9 +74,8 @@ if __name__ == "__main__":
         elif audio_quality == "n" or audio_quality == "":
             audio_model = "tts-1"
     
+    
     print_info("CLEANING TEXT with GPT...\n")
-    json_file = pdf_file_name.replace(".pdf", ".json")
-    output_json = json_file.replace(".json", "-cleaned.json")
     get_rewrite(json_file, output_json)
     voices = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"]
 
