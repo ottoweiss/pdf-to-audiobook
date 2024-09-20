@@ -42,7 +42,7 @@ def split_into_chunks(text, word_limit=1200):
     return chunks
 
 
-def extract_text_from_pdf(pdf_path, sections, page_difference=0):
+def extract_text_from_pdf(pdf_path, output_json, sections, page_difference=0):
     """
     Extracts the text from specified sections of a PDF file.
 
@@ -101,6 +101,6 @@ def extract_text_from_pdf(pdf_path, sections, page_difference=0):
     total_cost = round(rewrite_cost + audio_cost, 2)
     total_cost_str = f"{total_cost} $"
     total_cost_good_audio = f"{round(rewrite_cost + (audio_cost * 2), 2)}"
-    with open(pdf_path.replace(".pdf", ".json"), "w", encoding="utf-8") as sections_json:
+    with open(output_json, "w", encoding="utf-8") as sections_json:
         json.dump(section_chunks, sections_json, indent=2)
     return total_cost_str, total_time_str, total_cost_good_audio
