@@ -42,7 +42,8 @@ def split_into_chunks(text, word_limit=1200):
     return chunks
 
 
-def extract_text_from_pdf(pdf_path, output_json, sections, page_difference=0):
+
+def extract_text_from_pdf(pdf_path, title, page_start, page_end, page_difference=0):
     """
     Extracts the text from specified sections of a PDF file.
 
@@ -54,13 +55,19 @@ def extract_text_from_pdf(pdf_path, output_json, sections, page_difference=0):
     dict: Dictionary where keys are section titles and values are extracted text for each section.
     """
     doc = fitz.open(pdf_path)
-    section_ranges = [(title, (s + page_difference, e + page_difference)) for title, (s, e) in sections.items()]
+    if title == "":
+        raise ValueError()
+    if page_start == None:
+        page_start = 0
+    if page_end == None:
+        page_end = len(doc)
+    section_range = (title, (page_start, page_end))
     section_texts = {}
     for page_num in tqdm(range(1, len(doc) + 1)):
         page = doc[page_num - 1]
         cleaned_text = page.get_text()
         # Dictionary to store the extracted text for each section
-        for title, (start, end) in section_ranges:
+        for title, (start, end) in section_range:
             if start <= page_num <= end:
                 cleaned_text = cleaned_text.replace('–', '-').replace('—', '-')  # Replace en-dash and em-dash with hyphen
                 cleaned_text = cleaned_text.replace("\x0c", "")  # Replace line breaks with spaces
@@ -101,6 +108,6 @@ def extract_text_from_pdf(pdf_path, output_json, sections, page_difference=0):
     total_cost = round(rewrite_cost + audio_cost, 2)
     total_cost_str = f"{total_cost} $"
     total_cost_good_audio = f"{round(rewrite_cost + (audio_cost * 2), 2)}"
-    with open(output_json, "w", encoding="utf-8") as sections_json:
+    with open(pdf_path.replace(".pdf", ".json"), "w", encoding="utf-8") as sections_json:
         json.dump(section_chunks, sections_json, indent=2)
     return total_cost_str, total_time_str, total_cost_good_audio
