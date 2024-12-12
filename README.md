@@ -1,4 +1,4 @@
-*If anyone would like to build it out—like adding more cleaning options or fixing anything—feel free to contribute and submit pull requests.*
+*If anyone would like to build it out—like adding more cleaning options or fixing anything—or clean it up a bit feel free to contribute and submit pull requests.*
 
 Simple way to convert PDF into a professional-grade audiobook by using GPT and OpenAI's text-to-speech. 
 
