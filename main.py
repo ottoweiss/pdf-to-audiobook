@@ -63,7 +63,7 @@ if __name__ == "__main__":
             print_error("Please provide a valid integer for page numbers.")
         try:
             title = input_q("Enter Your Book Title: ").strip()
-            n_cost, e_time, h_cost = extract_text_from_pdf(pdf_file_name, {title: (page_start, page_end)})
+            n_cost, e_time, h_cost = extract_text_from_pdf(pdf_file_name, title, page_start, page_end)
             correct_page_range = True
         except Exception as e:
             print_error(f"Error while converting PDF: {e}")
