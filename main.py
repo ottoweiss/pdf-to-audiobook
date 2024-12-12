@@ -11,7 +11,7 @@ def input_q(text):
     print(Fore.YELLOW + text, end="")
     inp = input()
     print(Style.RESET_ALL, end="")
-    if inp == ":q":
+    if inp == ":q" or inp == "exit":
         exit()
     return inp
 
@@ -25,7 +25,7 @@ def print_success(message):
     print(Fore.GREEN + message + Style.RESET_ALL)
 
 if __name__ == "__main__":
-    print_info("Enter :q to quit at any time.\n")
+    print_info("Enter :q or exit to quit at any time.\n")
     print_info("Before Continuing, ensure your Openai API key is in the config.py file.\n")
     file_included = False
     while not file_included:
