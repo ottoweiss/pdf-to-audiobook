@@ -57,29 +57,25 @@ def extract_text_from_pdf(pdf_path, title, page_start, page_end, page_difference
     doc = fitz.open(pdf_path)
     if title == "":
         raise ValueError()
-    if page_start == None:
-        page_start = 0
-    if page_end == None:
-        page_end = len(doc)
-    section_range = (title, (page_start, page_end))
     section_texts = {}
-    for page_num in tqdm(range(1, len(doc) + 1)):
-        page = doc[page_num - 1]
+    if not page_start:
+        page_start = 0
+    if not page_end:
+        page_end = len(doc)
+    for page_num, page in enumerate(doc.pages(start=page_start, stop=page_end)):
         cleaned_text = page.get_text()
         # Dictionary to store the extracted text for each section
-        for title, (start, end) in section_range:
-            if start <= page_num <= end:
-                cleaned_text = cleaned_text.replace('–', '-').replace('—', '-')  # Replace en-dash and em-dash with hyphen
-                cleaned_text = cleaned_text.replace("\x0c", "")  # Replace line breaks with spaces
+        if page_start <= page_num <= page_end:
+            cleaned_text = cleaned_text.replace('–', '-').replace('—', '-')  # Replace en-dash and em-dash with hyphen
+            cleaned_text = cleaned_text.replace("\x0c", "")  # Replace line breaks with spaces
 
-                cleaned_text = spellcheck(cleaned_text).text
-                
-                # Append the processed text to the respective section
-                if title in section_texts:
-                    section_texts[title] += cleaned_text
-                else:
-                    section_texts[title] = cleaned_text
-                break
+            cleaned_text = spellcheck(cleaned_text).text
+            
+            # Append the processed text to the respective section
+            if title in section_texts:
+                section_texts[title] += cleaned_text
+            else:
+                section_texts[title] = cleaned_text
     section_chunks = {}
     overall_count = 0
     total_text = ""
