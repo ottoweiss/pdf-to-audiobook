@@ -47,23 +47,28 @@ if __name__ == "__main__":
             file_included = True
 
     correct_page_range = False
-    while not correct_page_range or title == "":
+    while not correct_page_range:
         try:
-            page_start = int(input_q("What page should the audiobook start?: ").strip())
-            page_end = int(input_q("What page should the audiobook end?: ").strip())
-            title = input_q("Enter Your Book Title: ").strip()
-            while title == "":
-                title = input_q("Enter Your Book Title: ").strip()
-            if not os.path.exists(title):
-                os.makedirs(title)
-            json_file = f"{title}/" + pdf_file_name.replace(".pdf", ".json")
-            output_json = json_file.replace(".json", "-cleaned.json")
-            n_cost, e_time, h_cost = extract_text_from_pdf(pdf_file_name, json_file, {title: (page_start, page_end)})
-            correct_page_range = True
+            page_start = input_q("What page should the audiobook start? (empty for 0): ").strip()
+            if page_start == "":
+                page_start = None
+            else:
+                page_start = int(page_start)
+            page_end = input_q("What page should the audiobook end? (empty for pdf end): ").strip()
+            if page_end == "":
+                page_end = None
+            else:
+                page_end = int(page_end)
         except ValueError:
             print_error("Please provide a valid integer for page numbers.")
+        try:
+            title = input_q("Enter Your Book Title: ").strip()
+            n_cost, e_time, h_cost = extract_text_from_pdf(pdf_file_name, {title: (page_start, page_end)})
+            correct_page_range = True
         except Exception as e:
             print_error(f"Error while converting PDF: {e}")
+        except ValueError:
+            print_error("Title cannot be empty.")
     
     print_info(f"ESTIMATED TIME FOR CONVERSION: {e_time}\n")
     audio_model = ""
