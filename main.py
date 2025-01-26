@@ -81,6 +81,8 @@ if __name__ == "__main__":
     
     
     print_info("CLEANING TEXT with GPT...\n")
+    json_file = pdf_file_name.replace(".pdf", ".json")
+    output_json = json_file.replace(".json", "-cleaned.json")
     get_rewrite(json_file, output_json)
     voices = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"]
 
